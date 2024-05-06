@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./output.css">
+</head>
+
+<body class="box-border m-0 p-0 bg-blue-100">
+
+    <!-- Header Section -->
+
+    <header class="w-full bg-blue-500 h-24 flex justify-center items-center">
+        <h1 class="text-center  text-gray-200 font-bold text-3xl">Weather Dashboard</h1>
+    </header>
+
+    <!-- Main Container -->
+
+    <div class="flex flex-col justify-center m-3 p-2 lg:flex-row lg:mr-10">
+
+        <!-- Left Side Container -->
+        <div class="flex flex-col mb-5 lg:w-2/5">
+            <h2 class="mb-5 font-bold text-5xl">Enter a City Name</h2>
+
+            <!-- Input Field to type city name -->
+            <input class="mb-3 p-3 rounded-md" id="search-input" type="text" placeholder="E.g. New York, London, Tokyo">
+
+            <!-- Select Dropdown menu -->
+            <select style="display: none; margin-bottom: 24px ;" class=" p-1 rounded-md bg-white" id="selectcity"
+                onchange="getselectedValue()">
+            </select>
+
+            <!-- Search Button to Get Data on the Basis of Searched Name -->
+            <button
+                class="mb-3 rounded-md outline-2 outline-blue-700 bg-white hover:bg-blue-500 hover:text-gray-200 p-2"
+                id="search-btn">Search</button>
+            <hr>
+
+            <!-- Current location button to get Data according to user Location -->
+            <button class="mb-3 rounded-md bg-white hover:bg-stone-600 hover:text-gray-200 p-2" id="current-btn"
+                onclick="currentWeather()">Use
+                Current
+                Location</button>
+        </div>
+
+        <!-- Right Side Container -->
+        <div class="mt-5 lg:w-4/5 lg:ml-10 ">
+
+            <!-- Current Weather Detail Container -->
+            <div class="bg-blue-500 h-80 flex flex-col justify-evenly items-center lg:flex-row lg:h-60 lg:rounded-md">
+
+                <!-- Weather Details -->
+                <div class="weather-details">
+                    <h2 class="text-white font-bold text-5xl mb-5" id="city-name">City Name</h2>
+                    <h3 class="text-white font-bold" id="temp">Temperature : 0°C</h3>
+                    <h3 class="text-white font-bold" id="wind">Wind : 0 km/h</h3>
+                    <h3 class="text-white font-bold" id="humidity">Humidity : 0%</h3>
+                </div>
+
+                <!-- Weather Icon -->
+                <div class="logo-container p-4">
+                    <img class="weather-icon h-24 w-24" src="" alt="weather">
+                    <h3 class="text-white ttext-center font-bold " id="weather-name"></h3>
+                </div>
+            </div>
+
+            <!-- 5 Days Weather Forecast container -->
+            <div class="mt-10 forecast" style="display: none;">
+                <h1 class="text-4xl font-bold">5-Day Forecast</h1>
+
+                <!-- Forecast Container -->
+                <div class="flex flex-col flex-wrap justify-start mt-5 md:flex-row  ">
+
+                    <!-- Different Days Weather Condition According to the Api -->
+                    <div
+                        class="bg-stone-600 h-60 m-3 rounded-md flex flex-col justify-center items-center md:w-80 lg:w-52 lg:m-2">
+                        <div class="logo-container">
+                            <img class="climate-icon h-24 w-24" src="" alt="weather">
+                            <h3 class="text-white"></h3>
+                        </div>
+                        <h3 class="text-white " id="temp"></h3>
+                        <h3 class="text-white " id="wind"></h3>
+                        <h3 class="text-white " id="humidity"></h3>
+                    </div>
+                    <div
+                        class="bg-stone-600 h-60 m-3 rounded-md flex flex-col justify-center items-center md:w-80 lg:w-52 lg:m-2">
+                        <div class="logo-container">
+                            <img class="climate-icon h-24 w-24" src="" alt="weather">
+                            <h3 class="text-white"></h3>
+                        </div>
+                        <h3 class="text-white" id="temp"></h3>
+                        <h3 class="text-white " id="wind"></h3>
+                        <h3 class="text-white " id="humidity"></h3>
+                    </div>
+                    <div
+                        class="bg-stone-600 h-60 m-3 rounded-md flex flex-col justify-center items-center md:w-80 lg:w-52 lg:m-2">
+                        <div class="logo-container">
+                            <img class="climate-icon h-24 w-24" src="" alt="weather">
+                            <h3 class="text-white"></h3>
+                        </div>
+                        <h3 class="text-white " id="temp"></h3>
+                        <h3 class="text-white " id="wind"></h3>
+                        <h3 class="text-white " id="humidity"></h3>
+                    </div>
+                    <div
+                        class="bg-stone-600 h-60 m-3 rounded-md flex flex-col justify-center items-center md:w-80 lg:w-52 lg:m-2">
+                        <div class="logo-container">
+                            <img class="climate-icon h-24 w-24" src="" alt="weather">
+                            <h3 class="text-white"></h3>
+                        </div>
+                        <h3 class="text-white " id="temp"></h3>
+                        <h3 class="text-white " id="wind"></h3>
+                        <h3 class="text-white " id="humidity"></h3>
+                    </div>
+                    <div
+                        class="bg-stone-600 h-60 m-3 rounded-md flex flex-col justify-center items-center md:w-80 lg:w-52 lg:m-2">
+                        <div class="logo-container">
+                            <img class="climate-icon h-24 w-24" src="" alt="weather">
+                            <h3 class="text-white"></h3>
+                        </div>
+                        <h3 class="text-white " id="temp"></h3>
+                        <h3 class="text-white " id="wind"></h3>
+                        <h3 class="text-white " id="humidity"></h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
