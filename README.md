@@ -11,6 +11,9 @@ There are 2 Api used for this Project
 1.  Api which will display data on the basis of City name
 2.  Api which will display data on the basis of current location of the user
 
+<!-- 5 Days Forecast -->
+5 days Advance Weather Forecast is also displayed on Api call
+
 <!-- Session Storage to store data -->
 Session Storage is used in this project to store preiously searched cities so that user can use them later
 using drop down menu
