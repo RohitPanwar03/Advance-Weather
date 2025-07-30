@@ -16,6 +16,37 @@ let selectCity = document.querySelector("#selectcity")
 
 weatherIcon.src = "./images/clear.png";
 
+// Debounce utility function
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+// Example usage for search functionality
+const debouncedSearch = debounce((searchTerm) => {
+    // Your search logic here
+    console.log('Searching for:', searchTerm);
+    // Perform the actual search operation
+}, 300); // 300ms delay
+
+// Usage in input field
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.querySelector('input[type="search"], .search-input, #search');
+    if (searchInput) {
+        searchInput.addEventListener('input', function(e) {
+            const value = e.target.value;
+            debouncedSearch(value);
+        });
+    }
+});
+
 async function checkweather(search) {
 
     try {
