@@ -16,6 +16,82 @@ let selectCity = document.querySelector("#selectcity")
 
 weatherIcon.src = "./images/clear.png";
 
+// ------------------------------
+// Video carousel logic
+// Only active video shows controls and option buttons
+// ------------------------------
+document.addEventListener("DOMContentLoaded", () => {
+    const videoCards = Array.from(document.querySelectorAll('.video-card'));
+    const prevBtn = document.querySelector('.video-prev');
+    const nextBtn = document.querySelector('.video-next');
+
+    if (videoCards.length === 0) return;
+
+    function setActiveCard(newActiveIndex) {
+        videoCards.forEach((card, idx) => {
+            const video = card.querySelector('video');
+            const options = card.querySelector('.options');
+
+            const isActive = idx === newActiveIndex;
+            card.classList.toggle('active', isActive);
+            if (options) options.style.display = isActive ? 'flex' : 'none';
+            if (video) {
+                video.controls = isActive;
+                if (!isActive) {
+                    video.pause();
+                }
+            }
+        });
+    }
+
+    // Initialize state: first active
+    let activeIndex = Math.max(0, videoCards.findIndex(c => c.classList.contains('active')));
+    if (activeIndex === -1) activeIndex = 0;
+    setActiveCard(activeIndex);
+
+    // Click on card sets it active
+    videoCards.forEach((card, idx) => {
+        card.addEventListener('click', () => {
+            activeIndex = idx;
+            setActiveCard(activeIndex);
+        });
+    });
+
+    // Prev/Next navigation
+    function go(delta) {
+        activeIndex = (activeIndex + delta + videoCards.length) % videoCards.length;
+        setActiveCard(activeIndex);
+        // Scroll into view if in overflow container
+        videoCards[activeIndex].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    }
+    if (prevBtn) prevBtn.addEventListener('click', () => go(-1));
+    if (nextBtn) nextBtn.addEventListener('click', () => go(1));
+
+    // Option buttons: mute toggle and fullscreen for active video
+    videoCards.forEach((card) => {
+        const video = card.querySelector('video');
+        const muteBtn = card.querySelector('.mute');
+        const fsBtn = card.querySelector('.fullscreen');
+        if (muteBtn && video) {
+            muteBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                video.muted = !video.muted;
+                muteBtn.textContent = video.muted ? '🔇' : '🔊';
+            });
+        }
+        if (fsBtn && video) {
+            fsBtn.addEventListener('click', async (e) => {
+                e.stopPropagation();
+                try {
+                    if (video.requestFullscreen) await video.requestFullscreen();
+                } catch (err) {
+                    console.warn('Fullscreen failed', err);
+                }
+            });
+        }
+    });
+});
+
 async function checkweather(search) {
 
     try {
